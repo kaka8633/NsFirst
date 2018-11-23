@@ -1,0 +1,194 @@
+/**
+ * Module Description
+ * 
+ * Version    Date            Author           Remarks
+ * 1.00       17 Sep 2018     huyuming
+ *
+ */
+
+/**
+ * The recordType (internal id) corresponds to the "Applied To" record in your
+ * script deployment.
+ * 
+ * @appliedtorecord recordType
+ * 
+ * @param {String}
+ *            type Access mode: create, copy, edit
+ * @returns {Void}
+ */
+function clientPageInit(type) {
+	console.log('this is so');
+  	console.log(type);
+	if(type == 'create' || type == 'copy'){//娴佹按鍙风疆鐏�ￄ1�7
+		nlapiDisableField('tranid',true);
+		nlapiSetFieldValue('tranid','');
+	}else if(type == 'edit'){
+		nlapiDisableField('tranid',true);
+	}
+	//fieldDisable();
+}
+
+/**
+ * The recordType (internal id) corresponds to the "Applied To" record in your
+ * script deployment.
+ * 
+ * @appliedtorecord recordType
+ * 
+ * @returns {Boolean} True to continue save, false to abort save
+ */
+function clientSaveRecord() {
+
+	return true;
+}
+
+/**
+ * The recordType (internal id) corresponds to the "Applied To" record in your
+ * script deployment.
+ * 
+ * @appliedtorecord recordType
+ * 
+ * @param {String}
+ *            type Sublist internal id
+ * @param {String}
+ *            name Field internal id
+ * @param {Number}
+ *            linenum Optional line item number, starts from 1
+ * @returns {Boolean} True to continue changing field value, false to abort
+ *          value change
+ */
+function clientValidateField(type, name, linenum) {
+	
+	// console.info(name);
+	// console.info(type);
+	// 1銆佹柊澧炶緭鍏ユ瘺棰濓紝甯﹀嚭鍚◣鍗曚环锛岢�◣璐癸紝閲戦锛岢�◣棰濓紝鍚◣鍗曚环
+//	if (type == 'item' && (name == 'quantity' || name == 'grossamt')) {
+//
+//		setAmountRef(type);// 璁剧疆璐圭巼
+//
+//	}
+//
+//	// 2銆侊拄1�71锟��芥嫨鎷╃◣绫讳唬鐮佸悗锛屾牴鎹紙鍚◣鍗曚环/绋庣巼锛夛級绠楀嚭涓嶅惈绋庡崟浠����//	if (type == 'item' && name == 'taxcode') {
+//
+//		setAmountRef(type);// 璁剧疆璐圭巼
+//
+//	}
+
+	return true;
+}
+
+/**
+ * The recordType (internal id) corresponds to the "Applied To" record in your
+ * script deployment.
+ * 
+ * @appliedtorecord recordType
+ * 
+ * @param {String}
+ *            type Sublist internal id
+ * @param {String}
+ *            name Field internal id
+ * @param {Number}
+ *            linenum Optional line item number, starts from 1
+ * @returns {Void}
+ */
+function clientFieldChanged(type, name, linenum) {
+	
+}
+
+/**
+ * The recordType (internal id) corresponds to the "Applied To" record in your
+ * script deployment.
+ * 
+ * @appliedtorecord recordType
+ * 
+ * @param {String}
+ *            type Sublist internal id
+ * @param {String}
+ *            name Field internal id
+ * @returns {Void}
+ */
+function clientPostSourcing(type, name) {
+	fieldDisable();
+}
+
+/**
+ * The recordType (internal id) corresponds to the "Applied To" record in your
+ * script deployment.
+ * 
+ * @appliedtorecord recordType
+ * 
+ * @param {String}
+ *            type Sublist internal id
+ * @returns {Void}
+ */
+function clientLineInit(type) {
+	
+}
+
+/**
+ * The recordType (internal id) corresponds to the "Applied To" record in your
+ * script deployment.
+ * 
+ * @appliedtorecord recordType
+ * 
+ * @param {String}
+ *            type Sublist internal id
+ * @returns {Boolean} True to save line item, false to abort save
+ */
+function clientValidateLine(type) {
+
+	return true;
+}
+
+/**
+ * The recordType (internal id) corresponds to the "Applied To" record in your
+ * script deployment.
+ * 
+ * @appliedtorecord recordType
+ * 
+ * @param {String}
+ *            type Sublist internal id
+ * @returns {Void}
+ */
+function clientRecalc(type) {
+
+}
+
+/**
+ * The recordType (internal id) corresponds to the "Applied To" record in your
+ * script deployment.
+ * 
+ * @appliedtorecord recordType
+ * 
+ * @param {String}
+ *            type Sublist internal id
+ * @returns {Boolean} True to continue line item insert, false to abort insert
+ */
+function clientValidateInsert(type) {
+
+	return true;
+}
+
+/**
+ * The recordType (internal id) corresponds to the "Applied To" record in your
+ * script deployment.
+ * 
+ * @appliedtorecord recordType
+ * 
+ * @param {String}
+ *            type Sublist internal id
+ * @returns {Boolean} True to continue line item delete, false to abort delete
+ */
+function clientValidateDelete(type) {
+
+	return true;
+}
+
+function fieldDisable() {
+	// 绂佺敤��楁閲戦銆佺◣棰濓拷1锟����垂鐜囷拄1�71锟��藉惈绋庯拷1锟��戒环銆佸惈绋庡崟浠����	nlapiDisableLineItemField('item', 'amount', true);
+	nlapiDisableLineItemField('item', 'tax1amt', true);
+	nlapiDisableLineItemField('item', 'rate', true);
+	nlapiDisableLineItemField('item', 'custcol_total_amount', true);
+	nlapiDisableLineItemField('item', 'custcol_unit_price', true);
+}
+
+// 鏢�惧湪鑴氭湰鐨勬渶鍚庨潄1�7,鍘婚櫎閲嶈浇鍓嶆彁绀����window.page_unload = null;

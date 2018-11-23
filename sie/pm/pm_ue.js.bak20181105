@@ -1,0 +1,735 @@
+/**
+ * Module Description
+ * 
+ * Version    Date            Author           Remarks
+ * 1.00       19 Sep 2018     zyt 工作UE
+ *
+ */
+
+/**
+ * The recordType (internal id) corresponds to the "Applied To" record in your
+ * script deployment.
+ * 
+ * @appliedtorecord recordType
+ * 
+ * @param {String}
+ *            type Operation types: create, edit, view, copy, print, email
+ * @param {nlobjForm}
+ *            form Current form
+ * @param {nlobjRequest}
+ *            request Request object
+ * @returns {Void}
+ */
+function userEventBeforeLoad(type, form, request) {
+
+	// 创建时从url中抓取参数(建筑高度和建筑面积)
+	if (type == 'create') {
+
+		// 已抽取放入页面底部，从url中抓取数据并放入相应字段
+		dataTransfer();
+
+	}
+
+	// 创建时没有资源页签
+	if (type == 'edit' || type == 'view') {
+
+		// 创建子标签并添加挣值图
+		addEarnValueChart(type, form);
+
+		// 资源详细信息，带出资源岗位、职称和能力
+		addJobResourcesItem(form, type);
+	}
+
+	if (type == 'view' || type == 'edit') {
+		// 创建销售合同子列表
+		contractsData(form);
+	}
+
+	// 调用绑定事件
+	addButtonEvent();
+
+}
+
+/**
+ * The recordType (internal id) corresponds to the "Applied To" record in your
+ * script deployment.
+ * 
+ * @appliedtorecord recordType
+ * 
+ * @param {String}
+ *            type Operation types: create, edit, delete, xedit approve, reject,
+ *            cancel (SO, ER, Time Bill, PO & RMA only) pack, ship (IF)
+ *            markcomplete (Call, Task) reassign (Case) editforecast (Opp,
+ *            Estimate)
+ * @returns {Void}
+ */
+function userEventBeforeSubmit(type) {
+	if (type == 'create') {
+		nlapiLogExecution('error', 'status', 'ok');
+		// add by Makaay 2018-10-24
+		var jobCode = nlapiGetFieldText('custentity_project_grade');// 项目级别代码
+		var buId = nlapiGetFieldValue('custentity_executive_department');// 项目执行部门id
+		var buFilters = new Array();
+		buFilters.push(new nlobjSearchFilter('internalid', null, 'is', buId));
+		var buColumns = new Array();
+		buColumns.push(new nlobjSearchColumn('custrecord_department_number'));
+		buColumns.push(new nlobjSearchColumn('name'));
+		var buTempData = nlapiCreateSearch('department', buFilters, buColumns)
+				.runSearch();
+		var buData = buTempData.getResults(0, 1);
+		var buCode = buData[0].getValue('custrecord_department_number');// BU编号
+		// 生成流水号
+		var returnData = makeSerialNum('project', '3');// 项目流水号
+		// 组装报价单编码
+		var codeStr = buCode + '.' + (returnData['year']).substring(2)
+				+ returnData['num'] + jobCode;
+		nlapiLogExecution('error', 'resultCode', codeStr);
+		// 重写编码
+		var successId = nlapiSetFieldValue('entityid', codeStr);
+	}
+}
+
+/**
+ * The recordType (internal id) corresponds to the "Applied To" record in your
+ * script deployment.
+ * 
+ * @appliedtorecord recordType
+ * 
+ * @param {String}
+ *            type Operation types: create, edit, delete, xedit, approve,
+ *            cancel, reject (SO, ER, Time Bill, PO & RMA only) pack, ship (IF
+ *            only) dropship, specialorder, orderitems (PO only) paybills
+ *            (vendor payments)
+ * @returns {Void}
+ */
+function userEventAfterSubmit(type) {
+
+}
+
+/**
+ * 资源详细信息，带出资源岗位、职称和能力 如为编辑界面，使用标准资源信息sublist 如为查看界面，使用客户化的资源信息sublist
+ * 
+ * @author zyt
+ */
+function addJobResourcesItem(form, type) {
+
+	if (type == 'edit') {
+
+		var jobResources = form.getSubList('jobresources');
+
+		jobResources.addField('custpage_post', 'text', '岗位').setDisplayType(
+				'Disabled');// 岗位
+
+		jobResources.addField('custpage_job', 'select', '职称',
+				'customlist_job_title').setDisplayType('Disabled');// 职称
+		jobResources.addField('custpage_power', 'select', '能力',
+				'customlist_ability_grade').setDisplayType('Disabled');// 能力
+	} else {
+
+		form.getSubList('jobresources').setDisplayType('hidden');
+
+		// 创建销售合同的子列表
+		var jobResources = form.addSubList('custpage_jobresources', 'list',
+				'资源详细信息', 'resources');
+
+		jobResources.addField('custpage_name', 'text', '名称');// 名称
+		jobResources.addField('custpage_email', 'text', '电子邮件');// 电子邮件
+		jobResources.addField('custpage_role', 'text', '角色');// 角色
+
+		jobResources.addField('custpage_default_cost', 'float', '默认成本');// 默认成本
+		jobResources.addField('custpage_cover_cost', 'float', '成本覆盖');// 成本覆盖
+
+		jobResources.addField('custpage_post', 'text', '岗位');// 岗位
+		jobResources.addField('custpage_job', 'select', '职称',
+				'customlist_job_title');// 职称
+		jobResources.addField('custpage_power', 'select', '能力',
+				'customlist_ability_grade');// 能力
+
+		// 赋值 客户化资源能力子列表
+		var count = nlapiGetLineItemCount('jobresources');
+
+		for (var i = 0; i < count; i++) {
+
+			nlapiSetLineItemValue('custpage_jobresources', 'custpage_name',
+					(i + 1), nlapiGetLineItemText('jobresources',
+							'jobresource', (i + 1)));// 名称
+			nlapiSetLineItemValue('custpage_jobresources', 'custpage_email',
+					(i + 1), nlapiGetLineItemValue('jobresources', 'email',
+							(i + 1)));// 邮件
+			nlapiSetLineItemValue('custpage_jobresources',
+					'custpage_default_cost', (i + 1), nlapiGetLineItemValue(
+							'jobresources', 'defaultcost', (i + 1)));// 默认成本
+			nlapiSetLineItemValue('custpage_jobresources',
+					'custpage_cover_cost', (i + 1), nlapiGetLineItemValue(
+							'jobresources', 'overridencost', (i + 1)));// 成本覆盖
+			nlapiSetLineItemValue('custpage_jobresources', 'custpage_role',
+					(i + 1), nlapiGetLineItemText('jobresources', 'role',
+							(i + 1)));// 角色
+
+			var empJson = getResourceEmpInfo(nlapiGetLineItemValue(
+					'jobresources', 'jobresource', (i + 1)));// 给资源详细信息界面带出人员信息
+
+			nlapiSetLineItemValue('custpage_jobresources', 'custpage_post',
+					(i + 1), empJson.post);
+			nlapiSetLineItemValue('custpage_jobresources', 'custpage_job',
+					(i + 1), empJson.job);
+			nlapiSetLineItemValue('custpage_jobresources', 'custpage_power',
+					(i + 1), empJson.power);
+		}
+
+	}
+
+}
+
+/**
+ * 用于beforeload触发 功能为接收来自so_opportunity_cs中放入url的参数，并放入相应的字段
+ * 
+ * @author YHR
+ */
+function dataTransfer() {
+
+	var buildingHeight = request.getParameter('custentity_jzgd');
+	var coveredArea = request.getParameter('custentity_jzmj');
+	var businessStatus = request.getParameter('custentity_xmyt');
+	var province = request.getParameter('custentity_province_zxp');
+	var professionalType = request.getParameter('custentity_business_type');
+	var address = request.getParameter('custentity_address');
+	var serviceArea = request.getParameter('custentity_service_area');
+	var city = request.getParameter('custentity_city1');
+	var businessLevel = request.getParameter('custentity_project_grade');
+	var bu = request.getParameter('custentity_executive_department');
+
+	// nlapiLogExecution('ERROR', 'buildingHeight', buildingHeight);
+	// nlapiLogExecution('ERROR', 'coveredArea', coveredArea);
+
+	nlapiSetFieldValue('custentity_jzgd', buildingHeight, true, true);
+	nlapiSetFieldValue('custentity_jzmj', coveredArea, true, true);
+	nlapiSetFieldValue('custentity_xmyt', businessStatus, true, true);
+	nlapiSetFieldValue('custentity_province_zxp', province, true, true);
+	nlapiSetFieldValue('custentity_business_type', professionalType, true, true);
+	nlapiSetFieldValue('custentity_address', address, true, true);
+	nlapiSetFieldValue('custentity_service_area', serviceArea, true, true);
+	nlapiSetFieldValue('custentity_city1', city, true, true);
+	nlapiSetFieldValue('custentity_project_grade', businessLevel, true, true);
+	nlapiSetFieldValue('custentity_executive_department', bu, true, true);
+	// nlapiSetFieldValue('entitystatus', '22', true, true);
+	nlapiSetFieldValue('custentity_pm_percentage', '0', true, true);
+
+}
+
+/**
+ * 创建销售合同子列表
+ * 
+ * @author zxp
+ */
+
+function contractsData(form) {
+	// 创建销售合同的子列表
+	var contractsSublist = form.addSubList('custpage_sale_contracts_list',
+			'list', '销售合同', 'relrecords');
+
+	contractsSublist.addField('custpage_contracts_codes', 'text', '合同编号');
+	contractsSublist.addField('custpage_contracts_name', 'text', '合同名称');
+	contractsSublist.addField('custpage_contracts_status', 'text', '合同状态');
+	contractsSublist.addField('custpage_contracts_money', 'text', '合同金额');
+	contractsSublist.addField('custpage_contracts_finished_money', 'text',
+			'已完工金额');
+	contractsSublist.addField('custpage_contracts_unfinished_money', 'text',
+			'未完工金额');
+	contractsSublist.addField('custpage_contracts_invoice_income', 'text',
+			'开票收入');
+	contractsSublist.addField('custpage_contracts_uninvoice_income', 'text',
+			'未开票收入');
+	contractsSublist.addField('custpage_contracts_cash', 'text', '现金(回款)');
+	contractsSublist.addField('custpage_contracts_receivables', 'text', '应收账款');
+
+	// 获取项目的类型及内部id
+	var type = nlapiGetRecordType();
+	var jobId = nlapiGetRecordId();
+	var jobRecord = nlapiLoadRecord(type, jobId);
+	// 项目经历确定百分比 转换成小数
+	var pm_percentage = parseInt(jobRecord
+			.getFieldValue('custentity_pm_percentage')) * 0.01;
+
+	// 查机会的合同状态
+	// var filters = [];
+	// var columns = [];
+	// filters.push(new nlobjSearchFilter('custbody_job_id', null, 'is',jobId));
+	// //columns[0] = new nlobjSearchColumn('custbody_contract_status_y_n');
+	// columns[0] = new nlobjSearchColumn('custbody_contract_status2');
+	// //var oppoSearch = nlapiCreateSearch('opportunity', filters, columns);
+	// var saleSearch = nlapiCreateSearch('salesorder', filters, columns);
+	// var saleResultSet = saleSearch.runSearch();
+	// var saleResult = saleResultSet.getResults(0, 1);
+	// var statusValue = '';
+	//		
+	// if (saleResult[0] != undefined) {
+	// statusValue = saleResult[0].getText(columns[0]);
+	// }
+
+	// 查询销售订单 由于jobId不能查询，只能做已保存搜索
+
+	var search = nlapiLoadSearch(null, 'customsearch_contract_sales_order');
+	search
+			.addFilter(new nlobjSearchFilter('internalid', 'jobMain', 'is',
+					jobId));
+	var resultSet = search.runSearch();
+	var result = resultSet.getResults(0, 1);
+	// 合同编号
+	var tranid = '';
+	// 合同名称
+	var contractName = '';
+	// 合约状态
+	var statusValue = '';
+	// 合同金额
+	var total = '';
+
+	// 已完成金额
+	var finishedTotal = 0;
+	// 未完成的金额
+	var unfinishedTotal = 0;
+	// 可能是内部项目，所以销售合同可能不存在
+	if (result[0] != undefined) {
+		tranid = result[0].getValue('tranid');
+		contractName = result[0].getValue('custbody_contract_name');
+		total = result[0].getValue('amount');
+		finishedTotal = (total * pm_percentage).toFixed(2);
+		unfinishedTotal = (total - finishedTotal).toFixed(2);
+		statusValue = result[0].getText('custbody_contract_status2');
+	}
+
+	// 已保存搜索 开票收入
+	var invoiceSearch = nlapiLoadSearch(null,
+			'customsearch_contract_invoice_income');
+	invoiceSearch.addFilter(new nlobjSearchFilter('internalid', 'jobMain',
+			'is', jobId));
+	var invoiceResultSet = invoiceSearch.runSearch();
+	var invoiceResult = invoiceResultSet.getResults(0, 1);
+	var invoiceIncome = 0;
+	if (invoiceResult[0] != undefined) {
+		invoiceIncome = invoiceResult[0].getValue('amount', null, 'sum');
+	}
+
+	// 已保存搜索 现金（回款）
+	var invoiceCashSearch = nlapiLoadSearch(null,
+			'customsearch_contract_invoice_cash');
+	invoiceCashSearch.addFilter(new nlobjSearchFilter('internalid', 'jobMain',
+			'is', jobId));
+	var invoiceCashResultSet = invoiceCashSearch.runSearch();
+	var invoiceCashResult = invoiceCashResultSet.getResults(0, 1);
+	var cash = 0;
+	if (invoiceCashResult[0] != undefined) {
+		cash = invoiceCashResult[0].getValue('amount', null, 'sum');
+	}
+
+	// 已保存搜索 应收账款
+	var invoiceReceivablesSearch = nlapiLoadSearch(null,
+			'customsearch_contract_invoice_receivable');
+	invoiceReceivablesSearch.addFilter(new nlobjSearchFilter('internalid',
+			'jobMain', 'is', jobId));
+	var invoiceReceivablesResultSet = invoiceReceivablesSearch.runSearch();
+	var invoiceReceivablesSetResult = invoiceReceivablesResultSet.getResults(0,
+			1);
+	var receivables = 0;
+	if (invoiceReceivablesSetResult[0] != undefined) {
+		receivables = invoiceReceivablesSetResult[0].getValue('amount', null,
+				'sum');
+	}
+
+	// 子列表赋值
+	contractsSublist.setLineItemValue('custpage_contracts_codes', 1, tranid);
+	contractsSublist.setLineItemValue('custpage_contracts_name', 1,
+			contractName);
+	contractsSublist.setLineItemValue('custpage_contracts_status', 1,
+			statusValue);
+	contractsSublist.setLineItemValue('custpage_contracts_money', 1, total);
+	contractsSublist.setLineItemValue('custpage_contracts_finished_money', 1,
+			finishedTotal);
+	contractsSublist.setLineItemValue('custpage_contracts_unfinished_money', 1,
+			unfinishedTotal);
+	contractsSublist.setLineItemValue('custpage_contracts_invoice_income', 1,
+			invoiceIncome);
+	var uninvoiceIncomeValue = finishedTotal - invoiceIncome;
+	// 当未开票收入是负数时，设置为0；
+	if (uninvoiceIncomeValue < 0) {
+		uninvoiceIncomeValue = 0;
+	}
+	contractsSublist.setLineItemValue('custpage_contracts_uninvoice_income', 1,
+			uninvoiceIncomeValue.toFixed(2));
+	contractsSublist.setLineItemValue('custpage_contracts_cash', 1, cash);
+	contractsSublist.setLineItemValue('custpage_contracts_receivables', 1,
+			receivables);
+
+}
+
+function addEarnValueChart(type, form) {
+
+	var testtab = form.addTab('custpage_test_add_table2', '测试表');
+
+	// var testlist = form.addSubList('custpage_test_add_subtable',
+	// 'editor','测试列表', 'custpage_test_add_table2');
+
+	// testtab.addField('custpage_universityname', 'text', 'University Name',
+	// null, 'custpage_test_add_table1s');
+	// testlist.setHelpText('<div id="div_funnel_1" style="height: 650px; width:
+	// 900px;">12</div>');
+	// testlist.addField('custpage_url', 'url', null, 'www.baidu.com');
+
+	var chart = form.addField('custpage_chart', 'inlinehtml', '挣值图', null,
+			'custpage_test_add_table2');
+
+	// 插入挣值图html的echart文件和jquery文件
+	// form.setScript('customscript_chart_earnedvalue_echart_cs');
+	// form.setScript('customscript_chart_earnedvalue_jquery_cs');
+	form.setScript('customscript_chart_earnedvalue_option_cs');
+    
+	chart
+	.setDefaultValue(getHtml());
+	/*chart
+			.setDefaultValue('<style>'
+					+ '.zbox canvas{padding-top: 7px !important;}'
+					+ '@media screen and (max-width:1020px){.echarts_left{float:none;margin-left: 200px;}'
+					+ '.echarts_right{float: none;margin-left:200px;margin-top: 20px;}.ProgressBarox{left: 60%;}'
+					+ '.switch{top: 353px;left: 55%;width: 14%;}}'
+					+ '</style>'
+					+
+
+					'<div class="zbox" style="height:100%;width:100%;">'
+					+ '<div style="width:98%;margin:0 auto;border:1px solid #cccccc;height: auto;overflow: hidden;border-top: none;padding-bottom: 20px;position: relative;min-width: 945px;">'
+					+ '<div class="echarts_left" id="echarts1" style="width:612px;height: 300px;border: 1px solid #cccccc;margin-top:5px;min-width: 460px;float: left; margin-left: 5px;">'
+					+
+
+					'</div>'
+					+ '<div class="echarts_right" id="echarts2" style="width:612px;height: 300px;border: 1px solid #cccccc;margin-top:5px;min-width: 460px; float: right;margin-right: 5px;">'
+					+
+
+					'</div>'
+					+ '<!-- 进度条开始-->'
+					+ '<div style="position:absolute;height: 34px;font-size: 0.1em; width: 8%;text-align: center; top: 10px;left: 38%;">'
+					+ '<div style=" position: relative;height: 10px;border: 1px solid #cccccc;line-height: 10px;border-bottom: none;">'
+					+ '<div style="  height: 10px;position: absolute;z-index: -1; left: 0; top: 0; background: #69CB9A; width: 10%;">'
+					+
+
+					'</div>'
+					+ '10%'
+					+ '</div>'
+					+ '<div style=" position: relative;height: 10px;border: 1px solid #cccccc;line-height: 10px;border-bottom: none;">'
+					+ '<div style="  height: 10px;position: absolute;z-index: -1; left: 0; top: 0; background: #FD6868;width: 50%;">'
+					+
+
+					'</div>'
+					+ '50%'
+					+ '</div>'
+					+ '<div style=" position: relative;height: 10px;border: 1px solid #cccccc;line-height: 10px;">'
+					+ '<div style="  height: 10px;position: absolute;z-index: -1; left: 0; top: 0; background: #69CB9A; width: 30%;">'
+					+
+
+					'</div>'
+					+ '30%'
+					+ '</div>'
+					+ '</div>'
+					+ '<!-- 进度条结束-->'
+					+ '<!-- 开关开始-->'
+					+ '<div style=" position: absolute;width: 13%;top: 10px;height: 34px;left: 90%;overflow: hidden;">'
+					+ '<div style=" height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px; margin-top: 5px; float: left;font-size: 10px;color: white; height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px;margin-top: 5px;border: 1px solid #69CB9A;background: #69CB9A;">CR</div>'
+					+ '<div style=" height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px; margin-top: 5px;float: left;font-size: 10px;color: white; height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px;margin-top: 5px; border: 1px solid #FDCB2E; background: #FDCB2E;margin-left: 3px;">SPI</div>'
+					+ '<div style=" height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px; margin-top: 5px;float: left;font-size: 10px;color: white; height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px;margin-top: 5px;border: 1px solid #FD6868;background: #FD6868;margin-left: 3px;">CPI</div>'
+					+ '<div style="  margin-top: 5px; margin-left: 3px;cursor: pointer;float: left;font-size: 10px;color: white;">'
+					+ '<img src="https://system.na2.netsuite.com/core/media/media.nl?id=9158&c=1979444&h=db66243fdd9b511b369d" alt="" id="tabOff" onclick="changeEcharts()" data-val="off">'
+					+ '</div>'
+					+ '</div>'
+					+ '<!-- 开关结束-->'
+					+ '<div style="clear:both;"></div>'
+					+ '<table style="text-align: center;border: 1px solid #cccccc;width: 99%;margin: 0 auto;margin-top: 20px;border-spacing: 0px;">'
+					+ '<thead>'
+					+ '<tr>'
+					+ '<th style=" font-weight: normal;">计划值(PV)</th>'
+					+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">实际值(AV)</th>'
+					+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">挣值(EV)</th>'
+					+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">进度偏差(SV)</th>'
+					+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">成本偏差(CV)</th>'
+					+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">关键比率(CR)</th>'
+					+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">进度比率(SPI)</th>'
+					+ '<th style=" font-weight: normal;">成本效率(CPI)</th>'
+					+ '</tr>'
+					+ '</thead>'
+					+ '<tbody>'
+					+ '<tr>'
+					+ '<td style=" font-weight: normal;border-top: 1px solid #cccccc;">11111</td>'
+					+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">11111</td>'
+					+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">11111</td>'
+					+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">11111</td>'
+					+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">11111</td>'
+					+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">11111</td>'
+					+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">11111</td>'
+					+ '<td style=" font-weight: normal;border-top: 1px solid #cccccc">11111</td>'
+					+ '</tr>' + '</tbody>' + '</table>' + '</div>' + '</div>'
+
+			);*/
+	// showEcharts();
+
+};
+
+/**
+ * @author yuming hu
+ * @description 增加按钮事件
+ * @date 2018-11-02
+ * @version 1.0
+ */
+function addButtonEvent() {
+
+	/* var btnc = form.addButton('custpage_recalc', 'Button (Client)',
+	 'clientFunction()');
+	
+	//var message = 'fdrfsdse'; 
+	//var btnc = form.addButton('custpage_recalc', 'Button (Client)', 'clientFunction("'+ message +'")' );
+	btnc.setVisible(false);
+	
+	form.setScript('customscript_test_click');*/// customscript_pm_binding_cs
+	//var message = '[["第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周"],["1","2","3","4","5","6","7","8","9","10"],["10","9","8","7","6","5","4","3","2","1"],["4","5","6","7","6","5","4","9","8","5"],[".7",".5",".3",".8",".1",".8",".8",".4","1.7","1.9"],[".5",".5",".6",".3","1.5",".7",".9","1.1","1.5","1.4"],[".6",".5",".2",".8",".5",".9","1.1","1.5","1.8","1.7"]]';
+	nlapiLogExecution('ERROR', 'resultSet', JSON.stringify(getEarnedValues()));
+
+	var message = getEarnedValues();
+	form.setScript('customscript_test_click');
+	var btnc = form.addButton('custpage_recalc', 'Button (Client)', 'clientFunctionMessage('+message+')' );
+	btnc.setVisible(false);
+}
+
+function getEarnedValues(){
+	
+	var earnedValues = [];
+	var weeks = [];
+	var pv = [];
+	var ac = [];
+	var ev = [];
+	var cr = [];
+	var spi = [];
+	var cpi = [];
+	var sv = [];
+	var cv = [];
+	
+	var columns = [];
+	columns[0] = new nlobjSearchColumn('custrecord_week_value').setSort(false);
+	columns[1] = new nlobjSearchColumn('custrecord_week_description');
+	columns[2] = new nlobjSearchColumn('custrecord_pv_value');
+	columns[3] = new nlobjSearchColumn('custrecord_ac_value');
+	columns[4] = new nlobjSearchColumn('custrecord_ev_value');
+	columns[5] = new nlobjSearchColumn('custrecord_cr_value');
+	columns[6] = new nlobjSearchColumn('custrecord_spi_value');
+	columns[7] = new nlobjSearchColumn('custrecord_cpi_value'); 
+	columns[8] = new nlobjSearchColumn('custrecord_sv_value'); 
+	columns[9] = new nlobjSearchColumn('custrecord_cv_value'); 
+
+	var filters = [];
+	filters[0] = new nlobjSearchFilter('custrecord_project_id',null,'is',1);
+	var searchResults = nlapiCreateSearch('customrecord_project_earned_value',
+			filters, columns).runSearch();
+	
+	var startIndex = 0;
+	do {
+		var result = searchResults.getResults(startIndex, startIndex + 1000);
+		for (var i = 0; i < result.length; i++) {
+			weeks.push(result[i].getValue('custrecord_week_description'));
+	    	pv.push(result[i].getValue('custrecord_pv_value'));
+	    	ac.push(result[i].getValue('custrecord_ac_value'));
+	    	ev.push(result[i].getValue('custrecord_ev_value'));
+	    	cr.push(result[i].getValue('custrecord_cr_value'));
+	    	spi.push(result[i].getValue('custrecord_spi_value'));
+	    	cpi.push(result[i].getValue('custrecord_cpi_value'));
+	    	sv.push(result[i].getValue('custrecord_sv_value'));
+	    	cv.push(result[i].getValue('custrecord_cv_value'));
+		}
+		startIndex += 1000;
+	} while (result != null && result.length > 0);
+	
+    earnedValues.push(weeks);
+    earnedValues.push(pv);
+    earnedValues.push(ac);
+    earnedValues.push(ev);
+    earnedValues.push(cr);
+    earnedValues.push(spi);
+    earnedValues.push(cpi);
+    
+    return  JSON.stringify(earnedValues).replace(new RegExp(
+			'\"', 'g'), "'");
+}
+
+function getHtml(){
+	
+	var copmpanyId = nlapiGetFieldValue('id');
+	var jobRec = nlapiLoadRecord('job', copmpanyId);
+	
+	//进度条取值
+	var mainPer = jobRec.getFieldValue('custentity_main_percenttimecomplete').split("%")[0];
+	var perc = jobRec.getFieldValue('percenttimecomplete').split("%")[0];
+	var pmp = jobRec.getFieldValue('custentity_pm_percentage').split("%")[0];
+	
+	var barValue1 = mainPer==null?"0":mainPer;
+	var barValue2 = perc==null?"0":perc;	
+	var barValue3 = pmp==null?"0":pmp;
+	
+	//第二个进度条的颜色
+	var diff = parseFloat(barValue2) - parseFloat(barValue3);
+	var bar2Color = '#66cc99';
+	if(diff >= 10){
+		bar2Color = '#ff6666';
+	}
+	
+	if(diff < 10 && diff > 0){
+		bar2Color = '#ffcc00';
+	}
+	
+	//红绿灯取值
+	var staticCr = jobRec.getFieldValue('custentity_cr_value');
+	var staticSpi = jobRec.getFieldValue('custentity_spi_value');
+	var staticCpi = jobRec.getFieldValue('custentity_cpi_value');
+	
+	//默认值
+	var colorCr = '#66cc99';
+	var colorSpi = '#66cc99';
+	var colorCpi = '#66cc99';
+	
+	//根据不同值获取不同的颜色
+	//cr
+	if(staticCr >1.3 || staticCr <0.8){
+		colorCr = '#ff6666';
+	}
+	
+	if((staticCr >=0.8&&staticCr<0.9) || (staticCr >1.2&&staticCr<=1.3)){
+		colorCr = '#ffcc00';
+	}
+	
+	//spi
+	if(staticSpi >1.3 || staticSpi <0.8){
+		colorSpi = '#ff6666';
+	}
+	
+	if((staticSpi >=0.8&&staticSpi<0.9) || (staticSpi >1.2&&staticSpi<=1.3)){
+		colorSpi = '#ffcc00';
+	}
+	
+	//cpi
+	if(staticCpi >1.3 || staticCpi <0.8){
+		colorCpi = '#ff6666';
+	}
+	
+	if((staticCpi >=0.8&&staticCpi<0.9) || (staticCpi >1.2&&staticCpi<=1.3)){
+		colorCpi = '#ffcc00';
+	}
+	
+	//列表取数
+	var weeks = [];
+	var pv = [];
+	var ac = [];
+	var ev = [];
+	var cr = [];
+	var spi = [];
+	var cpi = [];
+	var sv = [];
+	var cv = [];
+	
+	var columns = [];
+	columns[0] = new nlobjSearchColumn('custrecord_week_value').setSort(false);
+	columns[1] = new nlobjSearchColumn('custrecord_week_description');
+	columns[2] = new nlobjSearchColumn('custrecord_pv_value');
+	columns[3] = new nlobjSearchColumn('custrecord_ac_value');
+	columns[4] = new nlobjSearchColumn('custrecord_ev_value');
+	columns[5] = new nlobjSearchColumn('custrecord_cr_value');
+	columns[6] = new nlobjSearchColumn('custrecord_spi_value');
+	columns[7] = new nlobjSearchColumn('custrecord_cpi_value'); 
+	columns[8] = new nlobjSearchColumn('custrecord_sv_value'); 
+	columns[9] = new nlobjSearchColumn('custrecord_cv_value'); 
+
+	var filters = [];
+	filters[0] = new nlobjSearchFilter('custrecord_project_id',null,'is',1);
+	var searchResults = nlapiCreateSearch('customrecord_project_earned_value',
+			filters, columns).runSearch();
+	
+	var startIndex = 0;
+	do {
+		var result = searchResults.getResults(startIndex, startIndex + 1000);
+		for (var i = 0; i < result.length; i++) {
+			weeks.push(result[i].getValue('custrecord_week_description'));
+	    	pv.push(result[i].getValue('custrecord_pv_value'));
+	    	ac.push(result[i].getValue('custrecord_ac_value'));
+	    	ev.push(result[i].getValue('custrecord_ev_value'));
+	    	cr.push(result[i].getValue('custrecord_cr_value'));
+	    	spi.push(result[i].getValue('custrecord_spi_value'));
+	    	cpi.push(result[i].getValue('custrecord_cpi_value'));
+	    	sv.push(result[i].getValue('custrecord_sv_value'));
+	    	cv.push(result[i].getValue('custrecord_cv_value'));
+		}
+		startIndex += 1000;
+	} while (result != null && result.length > 0);
+	
+	
+	
+	var html = '<style>'
+		+ '.zbox canvas{padding-top: 7px !important;}'
+		+ '@media screen and (max-width:1020px){.echarts_left{float:none;margin-left: 200px;}'
+		+ '.echarts_right{float: none;margin-left:200px;margin-top: 20px;}.ProgressBarox{left: 60%;}'
+		+ '.switch{top: 353px;left: 55%;width: 14%;}}'
+		+ '</style>'
+		+'<div class="zbox" style="height:100%;width:100%;">'
+		+ '<div style="width:98%;margin:0 auto;border:1px solid #cccccc;height: auto;overflow: hidden;border-top: none;padding-bottom: 20px;position: relative;min-width: 945px;">'
+		+ '<div class="echarts_left" id="echarts1" style="width:612px;height: 300px;border: 1px solid #cccccc;margin-top:5px;min-width: 460px;float: left; margin-left: 5px;">'
+		+'</div>'
+		+ '<div class="echarts_right" id="echarts2" style="width:612px;height: 300px;border: 1px solid #cccccc;margin-top:5px;min-width: 460px; float: right;margin-right: 5px;">'
+		+'</div>'
+		+ '<!-- 进度条开始-->'
+		+ '<div style="position:absolute;height: 34px;font-size: 0.1em; width: 8%;text-align: center; top: 10px;left: 40%;">'
+		+ '<!-- 进度条1-->'
+		+ '<div style="overflow:hidden; height:11px; background-color:#ffffff;line-height: 11px;border-left:1px solid #e4e4e4;border-right:1px solid #e4e4e4;border-top:1px solid #e4e4e4;">'
+		+ '<div style="float:left; width:0; height:100%; font-size:11px; line-height:11px; color:#333333; text-align:center; background-color:#66cc99; width:'+barValue1+'%;">'
+		+ barValue1
+		+'%</div></div>'
+		+ '<!-- 进度条2-->'
+		+ '<div style="overflow:hidden; height:11px; background-color:#ffffff;line-height: 11px;border-left:1px solid #e4e4e4;border-right:1px solid #e4e4e4;border-top:1px solid #e4e4e4;">'
+		+ '<div style="float:left; width:0; height:100%; font-size:11px; line-height:11px; color:#333333; text-align:center; background-color:'+bar2Color+'; width:'+barValue2+'%;">'
+		+ barValue2
+		+'%</div></div>'
+		+ '<!-- 进度条3-->'
+		+ '<div style="overflow:hidden; height:11px; background-color:#ffffff;line-height: 11px;border-left:1px solid #e4e4e4;border-right:1px solid #e4e4e4;border-top:1px solid #e4e4e4;">'
+		+ '<div style="float:left; width:0; height:100%; font-size:11px; line-height:11px; color:#333333; text-align:center; background-color:#66cc99; width:'+barValue3+'%;">'
+		+ barValue3
+		+'%</div></div>'
+		+ '</div>'
+		+ '<!-- 进度条结束-->'
+		+ '<!-- 开关开始-->'
+		+ '<div style=" position: absolute;width: 13%;top: 10px;height: 34px;left: 90%;overflow: hidden;">'
+		+ '<div style=" height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px; margin-top: 5px;float: left;font-size: 10px;color: white; height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px;margin-top: 5px;border: 1px solid '+colorCr+';background: '+colorCr+';">CR</div>'
+		+ '<div style=" height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px; margin-top: 5px;float: left;font-size: 10px;color: white; height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px;margin-top: 5px; border: 1px solid '+colorSpi+'; background: '+colorSpi+';margin-left: 3px;">SPI</div>'
+		+ '<div style=" height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px; margin-top: 5px;float: left;font-size: 10px;color: white; height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px;margin-top: 5px;border: 1px solid '+colorCpi+';background: '+colorCpi+';margin-left: 3px;">CPI</div>'
+		+ '<div style="  margin-top: 5px; margin-left: 3px;cursor: pointer;float: left;font-size: 10px;color: white;">'
+		+ '<img src="https://system.na2.netsuite.com/core/media/media.nl?id=9158&c=1979444&h=db66243fdd9b511b369d" alt="" id="tabOff" onclick="changeEcharts()" data-val="off">'
+		+ '</div>'
+		+ '</div>'
+		+ '<!-- 开关结束-->'
+		+ '<div style="clear:both;"></div>'
+		+ '<table style="text-align: center;border: 1px solid #cccccc;width: 99%;margin: 0 auto;margin-top: 20px;border-spacing: 0px;">'
+		+ '<thead>'
+		+ '<tr>'
+		+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">计划值(PV)</th>'
+		+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">实际值(AC)</th>'
+		+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">挣值(EV)</th>'
+		+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">进度偏差(SV)</th>'
+		+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">成本偏差(CV)</th>'
+		+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">关键比率(CR)</th>'
+		+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">进度比率(SPI)</th>'
+		+ '<th style=" font-weight: normal;border-left: 1px solid #cccccc;">成本效率(CPI)</th>'
+		+ '</tr>'
+		+ '</thead>'
+		+ '<tbody>'
+		+ '<tr>'
+		+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">'+pv[pv.length-1]+'</td>'
+		+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">'+ac[pv.length-1]+'</td>'
+		+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">'+ev[pv.length-1]+'</td>'
+		+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">'+sv[pv.length-1]+'</td>'
+		+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">'+cv[pv.length-1]+'</td>'
+		+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">'+cr[pv.length-1]+'</td>'
+		+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">'+spi[pv.length-1]+'</td>'
+		+ '<td style=" font-weight: normal;border-left: 1px solid #cccccc;border-top: 1px solid #cccccc">'+cpi[pv.length-1]+'</td>'
+		+ '</tr>' + '</tbody>' + '</table>' + '</div>' + '</div>';
+	
+	return html;
+}

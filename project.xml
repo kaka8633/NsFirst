@@ -1,0 +1,414 @@
+<project info="SuiteCloud IDE generated file, do not edit." setAttributesOnUpdate="false">
+  <folder name="SieForster">
+    <folder name="sie">
+      <folder name="ap">
+        <file name="emp_payablebill_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      </folder>
+      <folder name="ar">
+        <file name="emp_invoice_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      </folder>
+      <folder name="chart">
+        <folder name="businessFunnel">
+          <file name="cux_businessAndcontractFunnel_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="cux_getBusinessData_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="cux_getBusinessData_ss.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="cux_renderBusinessFunnel_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="makaay_test_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="makaay_test_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        </folder>
+        <folder name="earnedvalue">
+          <file name="earned_option_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="earned_pm_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="earned_value_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+          <file name="earned_value_ss.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="echarts.min.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="jquery-1.11.3.min.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="off.png" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+          <file name="on.png" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        </folder>
+        <folder name="projectInfo">
+          <file name="get_win_to_cash_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="project_information_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="render_project_infomation_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="render_win_to_cash_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="win_to_cash_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        </folder>
+        <file name="cux_businessAndcontractFunnel_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_getBusinessData_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_getBusinessData_ss.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_renderBusinessFunnel_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="earned_pm_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="earned_value_ss.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="get_win_to_cash_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="makaay_test_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="makaay_test_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="project_information_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="render_project_infomation_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="render_win_to_cash_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="win_to_cash_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      </folder>
+      <folder name="crm">
+        <file name="contacts_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="contacts_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="contacts_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      </folder>
+      <folder name="cux">
+        <folder name="businessFunnel">
+          <file name="cux_businessAndcontractFunnel_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="cux_getBusinessData_ss.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="cux_renderBusinessFunnel_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="makaay_test_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="makaay_test_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        </folder>
+        <folder name="earnedValueChart">
+          <file name="emp_earnedvaluechart_scd.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        </folder>
+        <folder name="empapproval">
+          <file name="emp_approval_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_approval_cs1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_approval_sl_a.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_approval_sl_a1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_approval_sl_b.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_approval_sl_b1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_approval_sl_c.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_approval_sl_c1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_approval_sl_d.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_approval_sl_d1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_approval_sl_e.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_approval_sl_e1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_approval_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="tesGraph.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        </folder>
+        <folder name="empborrow">
+          <file name="emp_borrow_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_borrow_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_borrow_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_borrow_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        </folder>
+        <folder name="empdimission">
+          <file name="emp_dimission_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_dimission_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_dimission_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        </folder>
+        <folder name="empentry">
+          <file name="emp_entry_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_entry_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_entry_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="emp_entry_wf.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        </folder>
+        <folder name="employeeshired">
+          <file name="cux_employees_hired_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="cux_employess_hired_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="cux_employess_hired_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        </folder>
+        <folder name="payment">
+          <file name="cux_payment_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="cux_payment_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="cux_payment_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        </folder>
+        <folder name="salarydetails">
+          <file name="cux_salarydetails_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="cux_salarydetails_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+          <file name="cux_salarydetails_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        </folder>
+        <folder name="salecontract">
+          <file name="cux_salecontract_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        </folder>
+        <folder name="temp">
+          <file name="??????.xls" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+          <file name="??????.xls" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+          <file name="???????.xls" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+          <file name="??????.xls" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+          <file name="????????.xls" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        </folder>
+        <file name="cux_businessAndcontractFunnel_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_employees_hired_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_employess_hired_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_employess_hired_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_getBusinessData_ss.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_payment_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_payment_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_payment_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_renderBusinessFunnel_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_salarydetails_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_salarydetails_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_salarydetails_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_salecontract_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="emp_approval_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_approval_cs1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_approval_sl_a.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_approval_sl_a1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_approval_sl_b.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_approval_sl_b1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_approval_sl_c.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_approval_sl_c1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_approval_sl_d.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_approval_sl_d1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_approval_sl_e.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_approval_sl_e1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_approval_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_borrow_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_borrow_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_borrow_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_borrow_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_dimission_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_dimission_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_dimission_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_earnedvaluechart_scd.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_entry_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_entry_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_entry_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_entry_wf.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="makaay_test_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="makaay_test_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="tesGraph.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="??????.xls" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      </folder>
+      <folder name="debug">
+        <file name="Suitelet.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="_salary_temp" hideInBundle="false" isOnline="true" textFileEncoding="_gb18030"/>
+        <file name="cux_businessAndcontractFunnel_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_getBusinessData.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_getBusinessData_ss.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_payment_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_payment_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_removeDefault_home_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_renderBusinessFunnel_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="demo_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="hym_common_debug_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="hym_common_debug_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="hym_debug_pmtask_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="hym_debug_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="hym_debug_task_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="hym_earned_debug_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="hym_earned_debug_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="hym_form_value_debug_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="hym_form_value_debug_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="hym_general_debug_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="hym_write_debug_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="makaay_test_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="makaay_test_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="pm_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="so_payment_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="zxp_debug1_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="zxp_debug20_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="zxp_debug_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="zyt_debug_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="zyt_test_wl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      </folder>
+      <folder name="gl">
+        <file name="emp_journal_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      </folder>
+      <folder name="hr">
+        <file name="emp_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_expensereport_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_expensereport_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_percent_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="emp_percent_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_timebill_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_timesheet_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_timesheet_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="emp_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      </folder>
+      <folder name="plugin">
+        <folder name="css">
+          <file name="style.css" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        </folder>
+        <folder name="lang">
+          <file name="en.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+          <file name="zh-cn.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+          <file name="zh-tw.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        </folder>
+        <file name="WdatePicker.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="calendar.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="data.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="echarts.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="echarts.min.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="extraDate.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="funnel.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="handlebars.min.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="highcharts.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="jquery-3.2.1.min.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      </folder>
+      <folder name="pm">
+        <file name="billingschedule_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="cux_salarydetails_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="pm_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="pm_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="pm_ss.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="pm_task_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="pm_task_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="pm_task_submit_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="pm_task_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="pm_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="resourceallocation_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="resourceallocation_showdate_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="resourceallocation_showdate_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="resourceallocation_showdate_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="resourceallocation_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="test.html" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      </folder>
+      <folder name="po">
+        <file name="demo.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="po_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="po_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="po_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      </folder>
+      <folder name="setting">
+        <file name="svg?png.jpg" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="vscodeExtensionRestlet.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      </folder>
+      <folder name="so">
+        <file name="so_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="so_estimates_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="so_estimates_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="so_opportunity_competitor_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="so_opportunity_cs.js.bak20181030" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="so_opportunity_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="so_salesorders_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="so_salesorders_cs.js.bak111" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="so_salesorders_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      </folder>
+      <folder name="util">
+        <file name="SalesUtil.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="commonUtil.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="commonUtilback.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+        <file name="dataUtil.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="dateUtil.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="forsterUtil.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      </folder>
+      <file name="SalesUtil.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="WdatePicker.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="_salary_temp" hideInBundle="false" isOnline="true" textFileEncoding="_gb18030"/>
+      <file name="billingschedule_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="calendar.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="commonUtil.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="commonUtilback.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="contacts_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="contacts_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="contacts_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_businessAndcontractFunnel_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_employees_hired_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_employess_hired_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_employess_hired_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_getBusinessData_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_getBusinessData_ss.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_payment_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_payment_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_payment_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_renderBusinessFunnel_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_salarydetails_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_salarydetails_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_salarydetails_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="cux_salecontract_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="data.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="dataUtil.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="dateUtil.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="demo.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="demo_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="earned_option_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="earned_pm_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="earned_value_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="earned_value_ss.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="echarts.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="echarts.min.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_approval_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_approval_cs1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_approval_sl_a.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_approval_sl_a1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_approval_sl_b.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_approval_sl_b1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_approval_sl_c.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_approval_sl_c1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_approval_sl_d.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_approval_sl_d1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_approval_sl_e.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_approval_sl_e1.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_approval_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_borrow_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_borrow_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_borrow_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_borrow_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_dimission_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_dimission_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_dimission_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_earnedvaluechart_scd.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_entry_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_entry_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_entry_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_entry_wf.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_expensereport_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_expensereport_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_invoice_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_journal_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_payablebill_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_percent_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="emp_percent_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_timebill_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_timesheet_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_timesheet_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="emp_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="en.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="extraDate.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="forsterUtil.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="funnel.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="get_win_to_cash_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="handlebars.min.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="highcharts.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="hym_debug_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="hym_earned_debug_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="hym_earned_debug_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="jquery-1.11.3.min.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="jquery-3.2.1.min.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="makaay_test_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="makaay_test_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="off.png" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="on.png" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="pm_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="pm_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="pm_ss.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="pm_task_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="pm_task_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="pm_task_submit_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="pm_task_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="pm_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="po_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="po_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="po_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="project_information_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="render_project_infomation_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="render_win_to_cash_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="resourceallocation_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="resourceallocation_showdate_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="resourceallocation_showdate_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="resourceallocation_showdate_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="so_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="so_estimates_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="so_estimates_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="so_opportunity_competitor_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="so_opportunity_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="so_opportunity_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="so_payment_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="so_salesorders_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="so_salesorders_ue.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="style.css" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="svg?png.jpg" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="svg?png.jpg" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="tesGraph.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="test.html" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="vscodeExtensionRestlet.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="win_to_cash_ps.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="zh-cn.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="zh-tw.js" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="zxp_debug_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="zyt_debug_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+      <file name="??????.xls" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="???????.xls" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="????????.xls" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="??????.xls" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="????????.xls" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+      <file name="???????.xls" hideInBundle="false" isOnline="false" textFileEncoding="_gb18030"/>
+    </folder>
+  </folder>
+</project>
