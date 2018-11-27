@@ -17,49 +17,6 @@ function scheduled(type) {
 }
 
 function work(type) {
-	// 删除kpi表数据
-	var kpiRecord = nlapiSearchRecord('customrecord_kpi_bu_by_year_temp');
-	if (kpiRecord) {
-		for (var i = 0; i < kpiRecord.length; i++) {
-			nlapiDeleteRecord('customrecord_kpi_bu_by_year_temp', kpiRecord[i]
-				.getId());
-		}
-	}
-
-	//格式化数据
-	var initcolumns = new Array();
-	initcolumns[0] = new nlobjSearchColumn('custrecord_types');
-	initcolumns[1] = new nlobjSearchColumn('custrecord_type_description1');
-	initcolumns[2] = new nlobjSearchColumn('custrecord_department');
-	initcolumns[3] = new nlobjSearchColumn('custrecord_year1');
-	initcolumns[4] = new nlobjSearchColumn('custrecord_amount1');
-	initcolumns[5] = new nlobjSearchColumn('custrecord_class1');
-	initcolumns[6] = new nlobjSearchColumn('custrecord_classification_description');
-	var initRecord = nlapiSearchRecord('customrecord_bu_initialize', null, null, initcolumns);
-
-	for (var i = 0; i < initRecord.length; i++) {
-		var kpiType = initRecord[i].getValue('custrecord_types');
-		var kpiTypeDescription = initRecord[i].getValue('custrecord_type_description1');
-		var buId = initRecord[i].getValue('custrecord_department');
-		var buName = initRecord[i].getText('custrecord_department');
-		var years = initRecord[i].getValue('custrecord_year1');
-		var kpi = initRecord[i].getValue('custrecord_amount1');
-		var kpiClass = initRecord[i].getValue('custrecord_class1');
-		var kpiClassDescription = initRecord[i].getValue('custrecord_classification_description');
-
-		// 已签约
-		var kpiData = nlapiCreateRecord('customrecord_kpi_bu_by_year_temp');
-		kpiData.setFieldValue('custrecord_kpi_bu_id', buId);
-		kpiData.setFieldValue('custrecord_kpi_bu_name', buName);
-		kpiData.setFieldValue('custrecord_class', kpiClass);
-		kpiData.setFieldValue('custrecord_class_description', kpiClassDescription);
-		kpiData.setFieldValue('custrecord_tpye', kpiType);
-		kpiData.setFieldValue('custrecord_type_description', kpiTypeDescription);
-		kpiData.setFieldValue('custrecord_kpi_year', years);
-		kpiData.setFieldValue('custrecord_kpi_amount', kpi);
-		nlapiSubmitRecord(kpiData);
-	}
-
 	// 查询并保存立项金额视图
 	var signedupSearch = nlapiLoadSearch(null, 'customsearch_signed_up');
 	var signedupRs = signedupSearch.runSearch();
@@ -384,6 +341,10 @@ function work(type) {
 			var invoiceAmount = invoiceResult[i].getValue(invoiceColumns[2]);
 			// 付款金额
 			var paymentAmount = invoiceResult[i].getValue(invoiceColumns[3]);
+			// 费用报销
+			var expenseAmount = invoiceResult[i].getValue(invoiceColumns[4]);
+			// 采购
+			var purchaseAmount = invoiceResult[i].getValue(invoiceColumns[5]);
 
 			// 本年度开票收入
 			var kpiData = nlapiCreateRecord('customrecord_kpi_bu_by_year_temp');
@@ -414,11 +375,23 @@ function work(type) {
 			kpiData.setFieldValue('custrecord_kpi_bu_id', buId);
 			kpiData.setFieldValue('custrecord_kpi_bu_name', buName);
 			kpiData.setFieldValue('custrecord_class', 7);
-			kpiData.setFieldValue('custrecord_class_description', '现金流入');
+			kpiData.setFieldValue('custrecord_class_description', '现金流');
 			kpiData.setFieldValue('custrecord_tpye', 22);
 			kpiData.setFieldValue('custrecord_type_description', '现金流入');
 			kpiData.setFieldValue('custrecord_kpi_year', years);
 			kpiData.setFieldValue('custrecord_kpi_amount', paymentAmount);
+			nlapiSubmitRecord(kpiData);
+
+			// 现金流出（BU)
+			kpiData = nlapiCreateRecord('customrecord_kpi_bu_by_year_temp');
+			kpiData.setFieldValue('custrecord_kpi_bu_id', buId);
+			kpiData.setFieldValue('custrecord_kpi_bu_name', buName);
+			kpiData.setFieldValue('custrecord_class', 7);
+			kpiData.setFieldValue('custrecord_class_description', '现金流');
+			kpiData.setFieldValue('custrecord_tpye', 23);
+			kpiData.setFieldValue('custrecord_type_description', '现金流出（BU)');
+			kpiData.setFieldValue('custrecord_kpi_year', years);
+			kpiData.setFieldValue('custrecord_kpi_amount', expenseAmount + purchaseAmount);
 			nlapiSubmitRecord(kpiData);
 		}
 		startIndex += 1000;
@@ -548,180 +521,6 @@ function work(type) {
 		startIndex += 1000;
 	} while (beonJobResult != null && beonJobResult.length > 0);
 
-	// kpi 比率
-	var rateSearch = nlapiLoadSearch(null, 'customsearch_kpi_bu_rate');
-	var rateRs = rateSearch.runSearch();
-	// 获取字段
-	var rateColumns = rateRs.getColumns();
-
-	var startIndex = 0;
-
-	do {
-		var rateResult = rateRs.getResults(startIndex, startIndex + 1000);
-		for (var i = 0; i < rateResult.length; i++) {
-
-			// 部门Id
-			var buId = rateResult[i].getValue(rateColumns[0]);
-			// 部门名称
-			var buName = rateResult[i].getValue(rateColumns[1]);
-			// 年份
-			var years = rateResult[i].getValue(rateColumns[2]);
-			// 年度立项指标
-			var projectAmount = rateResult[i].getValue(rateColumns[3]);
-			// 本年度立项金额目标
-			var targetAmount = rateResult[i].getValue(rateColumns[4]);
-			// 立项数量
-			var projectCount = rateResult[i].getValue(rateColumns[5]);
-			// 本年度开票收入
-			var invoiceAmount = rateResult[i].getValue(rateColumns[6]);
-			// 本年度开票收入目标
-			var invoiceTargetAmount = rateResult[i].getValue(rateColumns[7]);
-			// 回款收入
-			var paymentAmount = rateResult[i].getValue(rateColumns[8]);
-			// 本年度回款收入目标
-			var paymentTargetAmount = rateResult[i].getValue(rateColumns[9]);
-			// 项目收费工时
-			var ProjectTime = rateResult[i].getValue(rateColumns[12]);
-
-			var projectAmountRate = targetAmount == 0 ? 0 : projectAmount /
-				targetAmount;
-
-			var projectCountRate = projectCount == 0 ? 0 : projectAmount /
-				projectCount;
-
-			var invoiceRate = invoiceTargetAmount == 0 ? 0 : invoiceAmount /
-				invoiceTargetAmount;
-
-			var paymentRate = paymentTargetAmount == 0 ? 0 : paymentAmount /
-				paymentTargetAmount;
-
-			var ivoiceProjectTimeRate = ProjectTime == 0 ? 0 : invoiceAmount /
-				ProjectTime;
-
-			// 年度目标完成率
-			var kpiData = nlapiCreateRecord('customrecord_kpi_bu_by_year_temp');
-			kpiData.setFieldValue('custrecord_kpi_bu_id', buId);
-			kpiData.setFieldValue('custrecord_kpi_bu_name', buName);
-			kpiData.setFieldValue('custrecord_class', 1);
-			kpiData.setFieldValue('custrecord_class_description', '立项金额');
-			kpiData.setFieldValue('custrecord_tpye', 5);
-			kpiData.setFieldValue('custrecord_type_description', '年度目标完成率');
-			kpiData.setFieldValue('custrecord_kpi_year', years);
-			kpiData.setFieldValue('custrecord_kpi_amount', projectAmountRate);
-			nlapiSubmitRecord(kpiData);
-
-			// 平均立项金额
-			var kpiData = nlapiCreateRecord('customrecord_kpi_bu_by_year_temp');
-			kpiData.setFieldValue('custrecord_kpi_bu_id', buId);
-			kpiData.setFieldValue('custrecord_kpi_bu_name', buName);
-			kpiData.setFieldValue('custrecord_class', 1);
-			kpiData.setFieldValue('custrecord_class_description', '立项金额');
-			kpiData.setFieldValue('custrecord_tpye', 8);
-			kpiData.setFieldValue('custrecord_type_description', '平均立项金额');
-			kpiData.setFieldValue('custrecord_kpi_year', years);
-			kpiData.setFieldValue('custrecord_kpi_amount', invoiceRate);
-			nlapiSubmitRecord(kpiData);
-
-			// 年度目标完成率(开票)
-			var kpiData = nlapiCreateRecord('customrecord_kpi_bu_by_year_temp');
-			kpiData.setFieldValue('custrecord_kpi_bu_id', buId);
-			kpiData.setFieldValue('custrecord_kpi_bu_name', buName);
-			kpiData.setFieldValue('custrecord_class', 3);
-			kpiData.setFieldValue('custrecord_class_description', '开票收入');
-			kpiData.setFieldValue('custrecord_tpye', 13);
-			kpiData.setFieldValue('custrecord_type_description', '年度目标完成率');
-			kpiData.setFieldValue('custrecord_kpi_year', years);
-			kpiData.setFieldValue('custrecord_kpi_amount', projectCountRate);
-			nlapiSubmitRecord(kpiData);
-
-			// 年度目标完成率(回款)
-			var kpiData = nlapiCreateRecord('customrecord_kpi_bu_by_year_temp');
-			kpiData.setFieldValue('custrecord_kpi_bu_id', buId);
-			kpiData.setFieldValue('custrecord_kpi_bu_name', buName);
-			kpiData.setFieldValue('custrecord_class', 4);
-			kpiData.setFieldValue('custrecord_class_description', '回款收入');
-			kpiData.setFieldValue('custrecord_tpye', 17);
-			kpiData.setFieldValue('custrecord_type_description', '年度目标完成率');
-			kpiData.setFieldValue('custrecord_kpi_year', years);
-			kpiData.setFieldValue('custrecord_kpi_amount', paymentRate);
-			nlapiSubmitRecord(kpiData);
-
-			// 开票收入/项目收费工时
-			var kpiData = nlapiCreateRecord('customrecord_kpi_bu_by_year_temp');
-			kpiData.setFieldValue('custrecord_kpi_bu_id', buId);
-			kpiData.setFieldValue('custrecord_kpi_bu_name', buName);
-			kpiData.setFieldValue('custrecord_class', 11);
-			kpiData.setFieldValue('custrecord_class_description', '人均小时价值');
-			kpiData.setFieldValue('custrecord_tpye', 34);
-			kpiData.setFieldValue('custrecord_type_description', '开票收入/项目收费工时');
-			kpiData.setFieldValue('custrecord_kpi_year', years);
-			kpiData.setFieldValue('custrecord_kpi_amount',
-				ivoiceProjectTimeRate);
-			nlapiSubmitRecord(kpiData);
-		}
-		startIndex += 1000;
-	} while (rateResult != null && rateResult.length > 0);
-
-	// 删除kpi表数据
-	kpiRecord = nlapiSearchRecord('customrecord_kpi_bu_by_year');
-	if (kpiRecord) {
-		for (var i = 0; i < kpiRecord.length; i++) {
-			nlapiDeleteRecord('customrecord_kpi_bu_by_year', kpiRecord[i]
-				.getId());
-		}
-	}
-
-	// 从临时表到正式表
-	var tempSearch = nlapiLoadSearch(null, 'customsearch_kpi_bu_temp');
-	var tempRs = tempSearch.runSearch();
-	// 获取字段
-	var tempColumns = tempRs.getColumns();
-
-	var startIndex = 0;
-
-	do {
-		var tempResult = tempRs.getResults(startIndex, startIndex + 1000);
-		for (var i = 0; i < tempResult.length; i++) {
-
-			// 部门Id
-			var kpiYears = tempResult[i].getValue(tempColumns[0]);
-			var kpiClass = tempResult[i].getValue(tempColumns[1]);
-			var kpiClassDescription = tempResult[i].getValue(tempColumns[2]);
-			var kpiType = tempResult[i].getValue(tempColumns[3]);
-			var kpiTypeDescription = tempResult[i].getValue(tempColumns[4]);
-			var kpiB01 = tempResult[i].getValue(tempColumns[5]);
-			var kpiB02 = tempResult[i].getValue(tempColumns[6]);
-			var kpiB03 = tempResult[i].getValue(tempColumns[7]);
-			var kpiB04 = tempResult[i].getValue(tempColumns[8]);
-			var kpiB05 = tempResult[i].getValue(tempColumns[9]);
-			var kpiB06 = tempResult[i].getValue(tempColumns[10]);
-			var kpiC01 = tempResult[i].getValue(tempColumns[11]);
-			var kpiC02 = tempResult[i].getValue(tempColumns[12]);
-			var kpiD01 = tempResult[i].getValue(tempColumns[13]);
-			var kpiE01 = tempResult[i].getValue(tempColumns[14]);
-			var kpiF01 = tempResult[i].getValue(tempColumns[15]);
-
-			// 年度目标完成率
-			var kpiData = nlapiCreateRecord('customrecord_kpi_bu_by_year');
-			kpiData.setFieldValue('custrecord_kpi_year_f', kpiYears);
-			kpiData.setFieldValue('custrecord_tpye_f', kpiType);
-			kpiData.setFieldValue('custrecord_type_description_f', kpiTypeDescription);
-			kpiData.setFieldValue('custrecord_class_f', kpiClass);
-			kpiData.setFieldValue('custrecord_class_description_f', kpiClassDescription);
-			kpiData.setFieldValue('custrecord_b01', kpiB01);
-			kpiData.setFieldValue('custrecord_b02', kpiB02);
-			kpiData.setFieldValue('custrecord_b03', kpiB03);
-			kpiData.setFieldValue('custrecord_b04', kpiB04);
-			kpiData.setFieldValue('custrecord_b05', kpiB05);
-			kpiData.setFieldValue('custrecord_b06', kpiB06);
-			kpiData.setFieldValue('custrecord_c01', kpiC01);
-			kpiData.setFieldValue('custrecord_c02', kpiC02);
-			kpiData.setFieldValue('custrecord_e01', kpiE01);
-			kpiData.setFieldValue('custrecord_f01', kpiF01);
-
-			nlapiSubmitRecord(kpiData);
-		}
-		startIndex += 1000;
-	} while (tempResult != null && tempResult.length > 0);
-
+	//调度
+	nlapiScheduleScript('customscript_kpi_bu_02_ss', 'customdeploy_kpi_bu_02_ss');
 }

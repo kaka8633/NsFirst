@@ -46,12 +46,15 @@ function work(type) {
 			var projectId = parseInt(origResult[i].getValue(origColumns[0]));
 			var projectNumber = origResult[i].getValue(origColumns[1]);
 			var projectName = origResult[i].getValue(origColumns[2]);
-			var managerPercent = parseFloat(origResult[i]
-					.getValue(origColumns[3]));
+			/*
+			 * var managerPercent = parseFloat(origResult[i]
+			 * .getValue(origColumns[3]));
+			 */
 			var week = 1;
 			var pv = 0;
 			var ac = 0;
-			var ev = 0;
+			var ev = parseFloat(origResult[i].getValue(origColumns[6]))
+					* parseFloat(origResult[i].getValue(origColumns[3]));
 			var sv = 0;
 			var cv = 0;
 			var spi = 0;
@@ -76,7 +79,7 @@ function work(type) {
 				// nlapiLogExecution('DEBUG', 'TEST', projectId);
 				ac = parseFloat(currentResult[0].getValue(currentColumns[3]));
 				pv = parseFloat(currentResult[0].getValue(currentColumns[4]));
-				ev = managerPercent * pv;
+				// ev = managerPercent * pv;
 				sv = ev - pv;
 				cv = ev - ac;
 				spi = pv == 0 ? 0 : ev / pv;

@@ -233,7 +233,10 @@
       <folder name="pm">
         <file name="billingschedule_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
         <file name="cux_salarydetails_dao.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="pm_binding_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="pm_contracts_ss.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
         <file name="pm_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
+        <file name="pm_plugin.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
         <file name="pm_sl.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
         <file name="pm_ss.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>
         <file name="pm_task_cs.js" hideInBundle="false" isOnline="false" textFileEncoding="_utf8"/>

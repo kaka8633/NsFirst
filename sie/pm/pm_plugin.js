@@ -186,18 +186,18 @@ function getHtml() {
 			+ '</div>'
 			+ '<!-- 进度条结束-->'
 			+ '<!-- 开关开始-->'
-			+ '<div style=" position: absolute;width: 13%;top: 10px;height: 34px;left: 90%;overflow: hidden;">'
-			+ '<div style=" height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px; margin-top: 5px;float: left;font-size: 10px;color: white; height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px;margin-top: 5px;border: 1px solid '
+			+ '<div style=" position: absolute;width: 13%;top: 17px;height: 34px;left: 92%;overflow: hidden;">'
+			+ '<div style=" height: 22px;width: 22px;border-radius: 50%;text-align: center;line-height: 22px; margin-top: 5px;float: left;font-size: 10px;color: white; height: 22px;width: 22px;border-radius: 50%;text-align: center;line-height: 22px;margin-top: 5px;border: 1px solid '
 			+ colorCr
 			+ ';background: '
 			+ colorCr
 			+ ';">CR</div>'
-			+ '<div style=" height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px; margin-top: 5px;float: left;font-size: 10px;color: white; height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px;margin-top: 5px; border: 1px solid '
+			+ '<div style=" height: 22px;width: 22px;border-radius: 50%;text-align: center;line-height: 22px; margin-top: 5px;float: left;font-size: 10px;color: white; height: 22px;width: 22px;border-radius: 50%;text-align: center;line-height: 22px;margin-top: 5px; border: 1px solid '
 			+ colorSpi
 			+ '; background: '
 			+ colorSpi
 			+ ';margin-left: 3px;">SPI</div>'
-			+ '<div style=" height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px; margin-top: 5px;float: left;font-size: 10px;color: white; height: 20px;width: 20px;border-radius: 50%;text-align: center;line-height: 20px;margin-top: 5px;border: 1px solid '
+			+ '<div style=" height: 22px;width: 22px;border-radius: 50%;text-align: center;line-height: 22px; margin-top: 5px;float: left;font-size: 10px;color: white; height: 22px;width: 22px;border-radius: 50%;text-align: center;line-height: 22px;margin-top: 5px;border: 1px solid '
 			+ colorCpi
 			+ ';background: '
 			+ colorCpi

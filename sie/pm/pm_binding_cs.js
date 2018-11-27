@@ -144,7 +144,9 @@ var option2 = {
 		trigger : 'axis'
 	},
 	legend : {
-		data : [ 'CR关键比率', 'SPI进度效率', 'CPI成本效率' ]
+		data : [ 'CR关键比率', 'SPI进度效率', 'CPI成本效率' ],
+		left: '15%',
+		top : '3%'
 	},
 	grid : {
 		left : '3%',
